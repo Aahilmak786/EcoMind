@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoMind Hero Banner</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        .hero-banner {
+            width: 1200px;
+            height: 800px;
+            background: linear-gradient(135deg, #2E8B57 0%, #4682B4 100%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .background-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(255,255,255,0.1) 2px, transparent 2px),
+                radial-gradient(circle at 80% 70%, rgba(255,255,255,0.1) 2px, transparent 2px),
+                radial-gradient(circle at 40% 80%, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 100px 100px, 150px 150px, 80px 80px;
+        }
+        
+        .content {
+            text-align: center;
+            z-index: 2;
+            max-width: 800px;
+        }
+        
+        .logo {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .tagline {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .features {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 3rem;
+        }
+        
+        .feature {
+            text-align: center;
+            flex: 1;
+            padding: 0 1rem;
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-text {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+        
+        .ai-elements {
+            position: absolute;
+            top: 10%;
+            right: 10%;
+            width: 200px;
+            height: 200px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            animation: rotate 20s linear infinite;
+        }
+        
+        .ai-elements::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100px;
+            height: 100px;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: rotate 15s linear infinite reverse;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .data-viz {
+            position: absolute;
+            bottom: 10%;
+            left: 10%;
+            width: 150px;
+            height: 100px;
+            opacity: 0.3;
+        }
+        
+        .bar {
+            width: 20px;
+            background: rgba(255,255,255,0.6);
+            margin: 0 5px;
+            display: inline-block;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .bar:nth-child(1) { height: 60px; animation-delay: 0s; }
+        .bar:nth-child(2) { height: 80px; animation-delay: 0.2s; }
+        .bar:nth-child(3) { height: 40px; animation-delay: 0.4s; }
+        .bar:nth-child(4) { height: 70px; animation-delay: 0.6s; }
+        .bar:nth-child(5) { height: 90px; animation-delay: 0.8s; }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-banner">
+        <div class="background-pattern"></div>
+        
+        <div class="ai-elements"></div>
+        
+        <div class="data-viz">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        
+        <div class="content">
+            <div class="logo">🌍 EcoMind</div>
+            <div class="tagline">Autonomous Environmental Intelligence System</div>
+            
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">🤖</div>
+                    <div class="feature-text">Multi-Agent AI</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-text">Real-time Monitoring</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔮</div>
+                    <div class="feature-text">Predictive Actions</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🌱</div>
+                    <div class="feature-text">Community Impact</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

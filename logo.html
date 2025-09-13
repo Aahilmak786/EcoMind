@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoMind Logo</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background: #F8F9FA;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        
+        .logo-container {
+            width: 800px;
+            height: 600px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .logo-icon {
+            position: relative;
+            width: 120px;
+            height: 120px;
+        }
+        
+        .earth-base {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #2E8B57 0%, #32CD32 50%, #228B22 100%);
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 8px 32px rgba(46, 139, 87, 0.3);
+            overflow: hidden;
+        }
+        
+        .earth-continents {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            width: 25px;
+            height: 35px;
+            background: #1E6B3A;
+            border-radius: 50% 30% 40% 60%;
+            opacity: 0.7;
+        }
+        
+        .earth-continents::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 30px;
+            width: 20px;
+            height: 25px;
+            background: #1E6B3A;
+            border-radius: 40% 60% 50% 30%;
+            opacity: 0.8;
+        }
+        
+        .earth-continents::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50px;
+            width: 15px;
+            height: 20px;
+            background: #1E6B3A;
+            border-radius: 60% 40% 30% 50%;
+            opacity: 0.6;
+        }
+        
+        .ai-ring {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: 140px;
+            height: 140px;
+            border: 3px solid #4682B4;
+            border-radius: 50%;
+            border-style: dashed;
+            animation: rotate 20s linear infinite;
+            opacity: 0.6;
+        }
+        
+        .ai-ring::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            right: 15px;
+            width: 8px;
+            height: 8px;
+            background: #4682B4;
+            border-radius: 50%;
+        }
+        
+        .ai-ring::after {
+            content: '';
+            position: absolute;
+            bottom: 20px;
+            left: -5px;
+            width: 6px;
+            height: 6px;
+            background: #4682B4;
+            border-radius: 50%;
+        }
+        
+        .data-points {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 4px;
+            height: 4px;
+            background: #FFD700;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .data-points::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: -20px;
+            width: 3px;
+            height: 3px;
+            background: #FFD700;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite 0.5s;
+        }
+        
+        .data-points::after {
+            content: '';
+            position: absolute;
+            bottom: 15px;
+            right: 25px;
+            width: 5px;
+            height: 5px;
+            background: #FFD700;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite 1s;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .logo-title {
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #2E8B57, #4682B4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0;
+            line-height: 1;
+        }
+        
+        .logo-subtitle {
+            font-size: 1.2rem;
+            color: #7F8C8D;
+            font-weight: 400;
+            margin-top: 8px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        .logo-tagline {
+            font-size: 0.9rem;
+            color: #95A5A6;
+            font-weight: 300;
+            margin-top: 4px;
+            font-style: italic;
+        }
+        
+        /* Compact version */
+        .logo-compact {
+            display: none;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-compact .logo-icon {
+            width: 60px;
+            height: 60px;
+        }
+        
+        .logo-compact .earth-base {
+            width: 60px;
+            height: 60px;
+        }
+        
+        .logo-compact .ai-ring {
+            width: 80px;
+            height: 80px;
+            top: -10px;
+            left: -10px;
+        }
+        
+        .logo-compact .logo-title {
+            font-size: 2rem;
+        }
+        
+        .logo-compact .logo-subtitle {
+            font-size: 0.8rem;
+        }
+        
+        .logo-compact .logo-tagline {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <!-- Full Logo -->
+        <div class="logo">
+            <div class="logo-icon">
+                <div class="earth-base">
+                    <div class="earth-continents"></div>
+                </div>
+                <div class="ai-ring"></div>
+                <div class="data-points"></div>
+            </div>
+            <div class="logo-text">
+                <div class="logo-title">EcoMind</div>
+                <div class="logo-subtitle">Autonomous AI</div>
+                <div class="logo-tagline">Environmental Intelligence System</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

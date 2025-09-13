@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoMind Logo Variations</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 40px;
+            font-family: 'Inter', sans-serif;
+            background: #F8F9FA;
+        }
+        
+        .variations-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo-variant {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .variant-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2C3E50;
+            margin-bottom: 30px;
+        }
+        
+        /* Full Logo */
+        .logo-full {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .logo-icon {
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+        
+        .earth-base {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #2E8B57 0%, #32CD32 50%, #228B22 100%);
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 6px 24px rgba(46, 139, 87, 0.3);
+            overflow: hidden;
+        }
+        
+        .earth-continents {
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            width: 15px;
+            height: 20px;
+            background: #1E6B3A;
+            border-radius: 50% 30% 40% 60%;
+            opacity: 0.7;
+        }
+        
+        .earth-continents::before {
+            content: '';
+            position: absolute;
+            top: 25px;
+            left: 20px;
+            width: 12px;
+            height: 15px;
+            background: #1E6B3A;
+            border-radius: 40% 60% 50% 30%;
+            opacity: 0.8;
+        }
+        
+        .earth-continents::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 35px;
+            width: 10px;
+            height: 12px;
+            background: #1E6B3A;
+            border-radius: 60% 40% 30% 50%;
+            opacity: 0.6;
+        }
+        
+        .ai-ring {
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            width: 96px;
+            height: 96px;
+            border: 2px solid #4682B4;
+            border-radius: 50%;
+            border-style: dashed;
+            animation: rotate 20s linear infinite;
+            opacity: 0.6;
+        }
+        
+        .ai-ring::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            right: 10px;
+            width: 5px;
+            height: 5px;
+            background: #4682B4;
+            border-radius: 50%;
+        }
+        
+        .ai-ring::after {
+            content: '';
+            position: absolute;
+            bottom: 15px;
+            left: -3px;
+            width: 4px;
+            height: 4px;
+            background: #4682B4;
+            border-radius: 50%;
+        }
+        
+        .data-points {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 3px;
+            height: 3px;
+            background: #FFD700;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .data-points::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: -15px;
+            width: 2px;
+            height: 2px;
+            background: #FFD700;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite 0.5s;
+        }
+        
+        .data-points::after {
+            content: '';
+            position: absolute;
+            bottom: 10px;
+            right: 18px;
+            width: 4px;
+            height: 4px;
+            background: #FFD700;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite 1s;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+        
+        .logo-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #2E8B57, #4682B4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0;
+            line-height: 1;
+        }
+        
+        .logo-subtitle {
+            font-size: 0.9rem;
+            color: #7F8C8D;
+            font-weight: 400;
+            margin-top: 5px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+        
+        .logo-tagline {
+            font-size: 0.7rem;
+            color: #95A5A6;
+            font-weight: 300;
+            margin-top: 3px;
+            font-style: italic;
+        }
+        
+        /* Icon Only */
+        .logo-icon-only {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto;
+        }
+        
+        .logo-icon-only .earth-base {
+            width: 120px;
+            height: 120px;
+        }
+        
+        .logo-icon-only .ai-ring {
+            width: 136px;
+            height: 136px;
+            top: -8px;
+            left: -8px;
+        }
+        
+        /* Horizontal Compact */
+        .logo-horizontal {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .logo-horizontal .logo-icon {
+            width: 60px;
+            height: 60px;
+        }
+        
+        .logo-horizontal .earth-base {
+            width: 60px;
+            height: 60px;
+        }
+        
+        .logo-horizontal .ai-ring {
+            width: 76px;
+            height: 76px;
+            top: -8px;
+            left: -8px;
+        }
+        
+        .logo-horizontal .logo-title {
+            font-size: 2rem;
+        }
+        
+        .logo-horizontal .logo-subtitle {
+            font-size: 0.7rem;
+        }
+        
+        .logo-horizontal .logo-tagline {
+            display: none;
+        }
+        
+        /* Text Only */
+        .logo-text-only {
+            text-align: center;
+        }
+        
+        .logo-text-only .logo-title {
+            font-size: 3rem;
+            text-align: center;
+        }
+        
+        .logo-text-only .logo-subtitle {
+            text-align: center;
+            font-size: 1rem;
+        }
+        
+        .logo-text-only .logo-tagline {
+            text-align: center;
+            font-size: 0.8rem;
+        }
+        
+        /* Monochrome Version */
+        .logo-mono .earth-base {
+            background: linear-gradient(135deg, #2C3E50, #34495E);
+        }
+        
+        .logo-mono .earth-continents,
+        .logo-mono .earth-continents::before,
+        .logo-mono .earth-continents::after {
+            background: #1A252F;
+        }
+        
+        .logo-mono .ai-ring {
+            border-color: #7F8C8D;
+        }
+        
+        .logo-mono .ai-ring::before,
+        .logo-mono .ai-ring::after {
+            background: #7F8C8D;
+        }
+        
+        .logo-mono .data-points,
+        .logo-mono .data-points::before,
+        .logo-mono .data-points::after {
+            background: #BDC3C7;
+        }
+        
+        .logo-mono .logo-title {
+            background: linear-gradient(135deg, #2C3E50, #34495E);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* White Background Version */
+        .logo-white {
+            background: #2C3E50;
+            color: white;
+        }
+        
+        .logo-white .logo-subtitle {
+            color: #BDC3C7;
+        }
+        
+        .logo-white .logo-tagline {
+            color: #95A5A6;
+        }
+    </style>
+</head>
+<body>
+    <div class="variations-container">
+        <!-- Full Logo -->
+        <div class="logo-variant">
+            <div class="variant-title">Full Logo (Primary)</div>
+            <div class="logo-full">
+                <div class="logo-icon">
+                    <div class="earth-base">
+                        <div class="earth-continents"></div>
+                    </div>
+                    <div class="ai-ring"></div>
+                    <div class="data-points"></div>
+                </div>
+                <div class="logo-text">
+                    <div class="logo-title">EcoMind</div>
+                    <div class="logo-subtitle">Autonomous AI</div>
+                    <div class="logo-tagline">Environmental Intelligence</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Icon Only -->
+        <div class="logo-variant">
+            <div class="variant-title">Icon Only</div>
+            <div class="logo-icon logo-icon-only">
+                <div class="earth-base">
+                    <div class="earth-continents"></div>
+                </div>
+                <div class="ai-ring"></div>
+                <div class="data-points"></div>
+            </div>
+        </div>
+        
+        <!-- Horizontal Compact -->
+        <div class="logo-variant">
+            <div class="variant-title">Horizontal Compact</div>
+            <div class="logo-horizontal">
+                <div class="logo-icon">
+                    <div class="earth-base">
+                        <div class="earth-continents"></div>
+                    </div>
+                    <div class="ai-ring"></div>
+                    <div class="data-points"></div>
+                </div>
+                <div class="logo-text">
+                    <div class="logo-title">EcoMind</div>
+                    <div class="logo-subtitle">Autonomous AI</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Text Only -->
+        <div class="logo-variant">
+            <div class="variant-title">Text Only</div>
+            <div class="logo-text logo-text-only">
+                <div class="logo-title">EcoMind</div>
+                <div class="logo-subtitle">Autonomous AI</div>
+                <div class="logo-tagline">Environmental Intelligence System</div>
+            </div>
+        </div>
+        
+        <!-- Monochrome Version -->
+        <div class="logo-variant">
+            <div class="variant-title">Monochrome</div>
+            <div class="logo-horizontal logo-mono">
+                <div class="logo-icon">
+                    <div class="earth-base">
+                        <div class="earth-continents"></div>
+                    </div>
+                    <div class="ai-ring"></div>
+                    <div class="data-points"></div>
+                </div>
+                <div class="logo-text">
+                    <div class="logo-title">EcoMind</div>
+                    <div class="logo-subtitle">Autonomous AI</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Dark Background Version -->
+        <div class="logo-variant logo-white">
+            <div class="variant-title" style="color: white;">Dark Background</div>
+            <div class="logo-horizontal">
+                <div class="logo-icon">
+                    <div class="earth-base">
+                        <div class="earth-continents"></div>
+                    </div>
+                    <div class="ai-ring"></div>
+                    <div class="data-points"></div>
+                </div>
+                <div class="logo-text">
+                    <div class="logo-title">EcoMind</div>
+                    <div class="logo-subtitle">Autonomous AI</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

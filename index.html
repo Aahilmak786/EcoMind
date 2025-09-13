@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoMind - Autonomous Environmental Intelligence</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-green-50 to-blue-50 min-h-screen">
+    <div x-data="ecoMindApp()" x-init="init()">
+        <!-- Navigation -->
+        <nav class="bg-white shadow-lg border-b-4 border-green-500">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 flex items-center">
+                            <i class="fas fa-brain text-green-600 text-2xl mr-2"></i>
+                            <h1 class="text-2xl font-bold text-gray-900">EcoMind</h1>
+                            <span class="ml-2 px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">AI Agents Active</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <button @click="activeTab = 'dashboard'" 
+                                :class="activeTab === 'dashboard' ? 'text-green-600 border-green-500' : 'text-gray-500 border-transparent'"
+                                class="px-3 py-2 border-b-2 font-medium text-sm">
+                            Dashboard
+                        </button>
+                        <button @click="activeTab = 'agents'" 
+                                :class="activeTab === 'agents' ? 'text-green-600 border-green-500' : 'text-gray-500 border-transparent'"
+                                class="px-3 py-2 border-b-2 font-medium text-sm">
+                            AI Agents
+                        </button>
+                        <button @click="activeTab = 'community'" 
+                                :class="activeTab === 'community' ? 'text-green-600 border-green-500' : 'text-gray-500 border-transparent'"
+                                class="px-3 py-2 border-b-2 font-medium text-sm">
+                            Community
+                        </button>
+                        <button @click="activeTab = 'coaching'" 
+                                :class="activeTab === 'coaching' ? 'text-green-600 border-green-500' : 'text-gray-500 border-transparent'"
+                                class="px-3 py-2 border-b-2 font-medium text-sm">
+                            My Coach
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            
+            <!-- Dashboard Tab -->
+            <div x-show="activeTab === 'dashboard'" class="space-y-6">
+                <!-- Hero Section -->
+                <div class="bg-gradient-to-r from-green-600 to-blue-600 rounded-lg shadow-xl p-8 text-white">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h2 class="text-3xl font-bold mb-2">Autonomous Environmental Intelligence</h2>
+                            <p class="text-green-100 text-lg">AI agents monitoring, predicting, and coordinating environmental action in real-time</p>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-4xl font-bold" x-text="systemStatus.agents_running || 0"></div>
+                            <div class="text-green-100">Active AI Agents</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Real-time Metrics -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center">
+                            <div class="p-2 bg-blue-100 rounded-lg">
+                                <i class="fas fa-wind text-blue-600 text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm font-medium text-gray-600">Average AQI</p>
+                                <p class="text-2xl font-semibold text-gray-900" x-text="environmentalData.average_aqi || 'Loading...'"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center">
+                            <div class="p-2 bg-red-100 rounded-lg">
+                                <i class="fas fa-exclamation-triangle text-red-600 text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm font-medium text-gray-600">Active Alerts</p>
+                                <p class="text-2xl font-semibold text-gray-900" x-text="environmentalData.active_alerts || 0"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center">
+                            <div class="p-2 bg-green-100 rounded-lg">
+                                <i class="fas fa-users text-green-600 text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm font-medium text-gray-600">Active Campaigns</p>
+                                <p class="text-2xl font-semibold text-gray-900" x-text="communityData.active_campaigns || 0"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center">
+                            <div class="p-2 bg-purple-100 rounded-lg">
+                                <i class="fas fa-chart-line text-purple-600 text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm font-medium text-gray-600">Predictions Made</p>
+                                <p class="text-2xl font-semibold text-gray-900" x-text="predictionsCount || 0"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Environmental Data Visualization -->
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Real-time Environmental Monitoring</h3>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div>
+                            <canvas id="aqiChart" width="400" height="200"></canvas>
+                        </div>
+                        <div class="space-y-4">
+                            <template x-for="location in environmentalLocations" :key="location.name">
+                                <div class="border rounded-lg p-4">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <h4 class="font-medium" x-text="location.name"></h4>
+                                        <span class="px-2 py-1 rounded-full text-xs font-medium"
+                                              :class="getAQIClass(location.aqi)"
+                                              x-text="'AQI: ' + location.aqi"></span>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-2 text-sm text-gray-600">
+                                        <div>Temp: <span x-text="location.temperature + '°C'"></span></div>
+                                        <div>Humidity: <span x-text="location.humidity + '%'"></span></div>
+                                        <div>PM2.5: <span x-text="location.pm25"></span></div>
+                                        <div>Wind: <span x-text="location.wind_speed + ' km/h'"></span></div>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Agents Tab -->
+            <div x-show="activeTab === 'agents'" class="space-y-6">
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">Autonomous AI Agents Status</h2>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <template x-for="(agent, name) in agentStatus" :key="name">
+                            <div class="border rounded-lg p-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-lg font-semibold" x-text="formatAgentName(name)"></h3>
+                                    <span class="px-3 py-1 rounded-full text-sm font-medium"
+                                          :class="agent.active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'"
+                                          x-text="agent.active ? 'Active' : 'Inactive'"></span>
+                                </div>
+                                
+                                <div class="space-y-3">
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Actions Taken:</span>
+                                        <span class="font-medium" x-text="agent.action_count || 0"></span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Last Action:</span>
+                                        <span class="font-medium text-sm" x-text="formatTime(agent.last_action)"></span>
+                                    </div>
+                                    <div class="mt-4">
+                                        <div class="text-sm text-gray-600 mb-2">Recent Activity:</div>
+                                        <div class="bg-gray-50 rounded p-3 text-sm">
+                                            <template x-if="getAgentActivity(name)">
+                                                <div x-text="getAgentActivity(name)"></div>
+                                            </template>
+                                            <template x-if="!getAgentActivity(name)">
+                                                <div class="text-gray-500 italic">No recent activity</div>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Agent Interactions -->
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Agent Coordination Network</h3>
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <div class="text-center">
+                            <div class="inline-flex items-center space-x-4">
+                                <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">
+                                    <i class="fas fa-eye"></i>
+                                </div>
+                                <div class="text-2xl text-gray-400">↔</div>
+                                <div class="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold">
+                                    <i class="fas fa-brain"></i>
+                                </div>
+                                <div class="text-2xl text-gray-400">↔</div>
+                                <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-white font-bold">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="text-2xl text-gray-400">↔</div>
+                                <div class="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </div>
+                            </div>
+                            <div class="mt-4 grid grid-cols-4 gap-4 text-sm">
+                                <div class="text-center">
+                                    <div class="font-medium">Monitor</div>
+                                    <div class="text-gray-600">Environmental Data</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="font-medium">Predict</div>
+                                    <div class="text-gray-600">Future Events</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="font-medium">Coordinate</div>
+                                    <div class="text-gray-600">Community Action</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="font-medium">Coach</div>
+                                    <div class="text-gray-600">Personal Growth</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Community Tab -->
+            <div x-show="activeTab === 'community'" class="space-y-6">
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">Community Environmental Campaigns</h2>
+                    
+                    <div class="space-y-4">
+                        <template x-for="campaign in activeCampaigns" :key="campaign.id">
+                            <div class="border rounded-lg p-6 hover:shadow-md transition-shadow">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-gray-900" x-text="campaign.title"></h3>
+                                        <p class="text-gray-600 mt-1" x-text="campaign.description"></p>
+                                    </div>
+                                    <span class="px-3 py-1 rounded-full text-sm font-medium"
+                                          :class="getPriorityClass(campaign.priority)"
+                                          x-text="campaign.priority + ' priority'"></span>
+                                </div>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                                    <div class="text-center">
+                                        <div class="text-2xl font-bold text-green-600" x-text="campaign.current_participants?.length || 0"></div>
+                                        <div class="text-sm text-gray-600">Participants</div>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="text-2xl font-bold text-blue-600" x-text="campaign.actions?.length || 0"></div>
+                                        <div class="text-sm text-gray-600">Actions Available</div>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="text-2xl font-bold text-purple-600" x-text="campaign.metrics?.impact_score || 0"></div>
+                                        <div class="text-sm text-gray-600">Impact Score</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex justify-between items-center">
+                                    <div class="text-sm text-gray-600">
+                                        Deadline: <span x-text="formatDate(campaign.deadline)"></span>
+                                    </div>
+                                    <button @click="joinCampaign(campaign.id)" 
+                                            class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+                                        Join Campaign
+                                    </button>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coaching Tab -->
+            <div x-show="activeTab === 'coaching'" class="space-y-6">
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">Personal Sustainability Coach</h2>
+                    
+                    <!-- User Profile -->
+                    <div class="bg-gradient-to-r from-green-100 to-blue-100 rounded-lg p-6 mb-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-xl font-semibold text-gray-900">Welcome back, Alice!</h3>
+                                <p class="text-gray-600">Your AI coach has new recommendations for you</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-green-600">75</div>
+                                <div class="text-sm text-gray-600">Sustainability Score</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recommendations -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="text-lg font-semibold text-gray-900 mb-4">Today's Recommendations</h4>
+                            <div class="space-y-3">
+                                <template x-for="rec in personalRecommendations" :key="rec.id">
+                                    <div class="border rounded-lg p-4 hover:shadow-sm transition-shadow">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <h5 class="font-medium text-gray-900" x-text="rec.title"></h5>
+                                            <span class="px-2 py-1 rounded-full text-xs font-medium"
+                                                  :class="getPriorityClass(rec.priority)"
+                                                  x-text="rec.points + ' pts'"></span>
+                                        </div>
+                                        <p class="text-gray-600 text-sm mb-3" x-text="rec.message"></p>
+                                        <button @click="completeAction(rec.id)" 
+                                                class="w-full px-3 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors text-sm">
+                                            Complete Action
+                                        </button>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="text-lg font-semibold text-gray-900 mb-4">Sustainability Challenges</h4>
+                            <div class="space-y-3">
+                                <template x-for="challenge in sustainabilityChallenges" :key="challenge.id">
+                                    <div class="border rounded-lg p-4">
+                                        <h5 class="font-medium text-gray-900 mb-2" x-text="challenge.title"></h5>
+                                        <p class="text-gray-600 text-sm mb-3" x-text="challenge.description"></p>
+                                        <div class="flex justify-between items-center">
+                                            <span class="text-sm text-gray-600" x-text="challenge.duration_days + ' days'"></span>
+                                            <span class="px-2 py-1 bg-purple-100 text-purple-800 rounded-full text-xs font-medium" 
+                                                  x-text="challenge.points + ' points'"></span>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function ecoMindApp() {
+            return {
+                activeTab: 'dashboard',
+                systemStatus: {},
+                environmentalData: {},
+                communityData: {},
+                agentStatus: {},
+                activeCampaigns: [],
+                personalRecommendations: [],
+                sustainabilityChallenges: [],
+                environmentalLocations: [],
+                predictionsCount: 0,
+
+                async init() {
+                    await this.loadData();
+                    this.setupRealTimeUpdates();
+                    this.initializeCharts();
+                },
+
+                async loadData() {
+                    try {
+                        // Load system status
+                        const statusResponse = await fetch('/api/dashboard');
+                        const statusData = await statusResponse.json();
+                        this.systemStatus = statusData.system_status || {};
+                        this.environmentalData = statusData.environmental_summary || {};
+                        this.communityData = statusData.community_summary || {};
+
+                        // Load agent status
+                        const agentsResponse = await fetch('/api/agents/status');
+                        const agentsData = await agentsResponse.json();
+                        this.agentStatus = agentsData.agents || {};
+
+                        // Load environmental data
+                        const envResponse = await fetch('/api/environmental/current');
+                        if (envResponse.ok) {
+                            const envData = await envResponse.json();
+                            this.environmentalLocations = this.processEnvironmentalData(envData.environmental_data || []);
+                        }
+
+                        // Load campaigns
+                        const campaignsResponse = await fetch('/api/community/campaigns');
+                        if (campaignsResponse.ok) {
+                            const campaignsData = await campaignsResponse.json();
+                            this.activeCampaigns = campaignsData.campaigns || [];
+                        }
+
+                        // Load predictions
+                        const predictionsResponse = await fetch('/api/environmental/predictions');
+                        if (predictionsResponse.ok) {
+                            const predictionsData = await predictionsResponse.json();
+                            this.predictionsCount = predictionsData.predictions?.length || 0;
+                        }
+
+                        // Mock personal data
+                        this.personalRecommendations = [
+                            {
+                                id: 'rec1',
+                                title: 'Use Public Transport',
+                                message: 'Air quality is moderate today. Consider using public transport to reduce emissions.',
+                                priority: 'medium',
+                                points: 20
+                            },
+                            {
+                                id: 'rec2',
+                                title: 'Plant Indoor Plants',
+                                message: 'Add air-purifying plants to improve your home\'s air quality.',
+                                priority: 'low',
+                                points: 15
+                            }
+                        ];
+
+                        this.sustainabilityChallenges = [
+                            {
+                                id: 'challenge1',
+                                title: '7-Day Air Quality Improvement',
+                                description: 'Take daily actions to improve local air quality',
+                                duration_days: 7,
+                                points: 100
+                            },
+                            {
+                                id: 'challenge2',
+                                title: 'Community Environmental Hero',
+                                description: 'Coordinate with neighbors for environmental action',
+                                duration_days: 14,
+                                points: 250
+                            }
+                        ];
+
+                    } catch (error) {
+                        console.error('Error loading data:', error);
+                        // Use mock data for demo
+                        this.loadMockData();
+                    }
+                },
+
+                loadMockData() {
+                    this.systemStatus = { agents_running: 4 };
+                    this.environmentalData = { average_aqi: 85, active_alerts: 2, monitoring_locations: 3 };
+                    this.communityData = { active_campaigns: 3, total_participants: 24 };
+                    this.predictionsCount = 12;
+                    
+                    this.agentStatus = {
+                        'EnvironmentalMonitoringAgent': { active: true, action_count: 156, last_action: new Date().toISOString() },
+                        'PredictiveActionAgent': { active: true, action_count: 89, last_action: new Date().toISOString() },
+                        'CommunityCoordinationAgent': { active: true, action_count: 34, last_action: new Date().toISOString() },
+                        'PersonalSustainabilityCoach': { active: true, action_count: 67, last_action: new Date().toISOString() }
+                    };
+
+                    this.environmentalLocations = [
+                        { name: 'City Center', aqi: 95, temperature: 24, humidity: 65, pm25: 35, wind_speed: 12 },
+                        { name: 'Industrial Zone', aqi: 110, temperature: 26, humidity: 58, pm25: 45, wind_speed: 8 },
+                        { name: 'Residential Area', aqi: 72, temperature: 23, humidity: 70, pm25: 28, wind_speed: 15 }
+                    ];
+
+                    this.activeCampaigns = [
+                        {
+                            id: 'camp1',
+                            title: 'Clean Air Initiative',
+                            description: 'Community action to improve local air quality',
+                            priority: 'high',
+                            current_participants: new Array(12),
+                            actions: new Array(5),
+                            metrics: { impact_score: 450 },
+                            deadline: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()
+                        },
+                        {
+                            id: 'camp2',
+                            title: 'Green Transportation Week',
+                            description: 'Promote sustainable transportation options',
+                            priority: 'medium',
+                            current_participants: new Array(8),
+                            actions: new Array(4),
+                            metrics: { impact_score: 320 },
+                            deadline: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString()
+                        }
+                    ];
+                },
+
+                processEnvironmentalData(data) {
+                    return data.map(item => ({
+                        name: item.location,
+                        aqi: item.air_quality?.aqi || 50,
+                        temperature: item.weather?.temperature || 20,
+                        humidity: item.weather?.humidity || 60,
+                        pm25: item.air_quality?.pm25 || 25,
+                        wind_speed: item.weather?.wind_speed || 10
+                    }));
+                },
+
+                setupRealTimeUpdates() {
+                    // Update data every 30 seconds
+                    setInterval(() => {
+                        this.loadData();
+                    }, 30000);
+                },
+
+                initializeCharts() {
+                    // Initialize AQI chart
+                    const ctx = document.getElementById('aqiChart');
+                    if (ctx) {
+                        new Chart(ctx, {
+                            type: 'line',
+                            data: {
+                                labels: ['6h ago', '5h ago', '4h ago', '3h ago', '2h ago', '1h ago', 'Now'],
+                                datasets: [{
+                                    label: 'Average AQI',
+                                    data: [78, 82, 85, 88, 85, 83, this.environmentalData.average_aqi || 85],
+                                    borderColor: 'rgb(34, 197, 94)',
+                                    backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                                    tension: 0.4
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                plugins: {
+                                    legend: {
+                                        display: false
+                                    }
+                                },
+                                scales: {
+                                    y: {
+                                        beginAtZero: true,
+                                        max: 200
+                                    }
+                                }
+                            }
+                        });
+                    }
+                },
+
+                formatAgentName(name) {
+                    return name.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()).replace('Agent', '');
+                },
+
+                formatTime(timestamp) {
+                    if (!timestamp) return 'Never';
+                    return new Date(timestamp).toLocaleTimeString();
+                },
+
+                formatDate(dateString) {
+                    if (!dateString) return 'No deadline';
+                    return new Date(dateString).toLocaleDateString();
+                },
+
+                getAQIClass(aqi) {
+                    if (aqi <= 50) return 'bg-green-100 text-green-800';
+                    if (aqi <= 100) return 'bg-yellow-100 text-yellow-800';
+                    if (aqi <= 150) return 'bg-orange-100 text-orange-800';
+                    return 'bg-red-100 text-red-800';
+                },
+
+                getPriorityClass(priority) {
+                    switch (priority) {
+                        case 'high': return 'bg-red-100 text-red-800';
+                        case 'medium': return 'bg-yellow-100 text-yellow-800';
+                        case 'low': return 'bg-green-100 text-green-800';
+                        default: return 'bg-gray-100 text-gray-800';
+                    }
+                },
+
+                getAgentActivity(agentName) {
+                    const activities = {
+                        'EnvironmentalMonitoringAgent': 'Monitoring 3 locations, detected 2 air quality alerts',
+                        'PredictiveActionAgent': 'Generated 5 predictions, triggered 2 preventive actions',
+                        'CommunityCoordinationAgent': 'Coordinating 3 campaigns, recruited 12 new participants',
+                        'PersonalSustainabilityCoach': 'Coaching 25 users, generated 45 personalized recommendations'
+                    };
+                    return activities[agentName];
+                },
+
+                async joinCampaign(campaignId) {
+                    try {
+                        const response = await fetch(`/api/community/campaigns/${campaignId}/join`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                user_info: {
+                                    id: 'user_demo',
+                                    name: 'Demo User'
+                                }
+                            })
+                        });
+                        
+                        if (response.ok) {
+                            alert('Successfully joined campaign!');
+                            await this.loadData();
+                        } else {
+                            alert('Failed to join campaign. Please try again.');
+                        }
+                    } catch (error) {
+                        console.error('Error joining campaign:', error);
+                        alert('Successfully joined campaign! (Demo mode)');
+                    }
+                },
+
+                async completeAction(actionId) {
+                    try {
+                        const response = await fetch('/api/coaching/users/user_demo/complete_action', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                action: 'demo_action',
+                                type: 'sustainability',
+                                points: 20,
+                                impact_points: 10
+                            })
+                        });
+                        
+                        if (response.ok) {
+                            alert('Action completed! +20 points earned.');
+                            await this.loadData();
+                        } else {
+                            alert('Failed to complete action. Please try again.');
+                        }
+                    } catch (error) {
+                        console.error('Error completing action:', error);
+                        alert('Action completed! +20 points earned. (Demo mode)');
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoMind Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background: #F8F9FA;
+        }
+        
+        .dashboard {
+            width: 1200px;
+            height: 800px;
+            background: #F8F9FA;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2E8B57, #32CD32);
+            height: 80px;
+            display: flex;
+            align-items: center;
+            padding: 0 30px;
+            color: white;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        .status-bar {
+            margin-left: auto;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #32CD32;
+        }
+        
+        .main-content {
+            padding: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: auto auto auto;
+            gap: 20px;
+            height: calc(100% - 140px);
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: 1px solid #E0E0E0;
+        }
+        
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #2C3E50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .metric-large {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2E8B57;
+            margin: 10px 0;
+        }
+        
+        .metric-small {
+            font-size: 0.9rem;
+            color: #7F8C8D;
+        }
+        
+        .chart-placeholder {
+            height: 120px;
+            background: linear-gradient(135deg, #E8F5E8, #F0F8F0);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2E8B57;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        .agent-status {
+            grid-column: span 3;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .agent-card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            border: 2px solid;
+        }
+        
+        .agent-monitoring { border-color: #3498DB; }
+        .agent-predictive { border-color: #9B59B6; }
+        .agent-community { border-color: #E74C3C; }
+        .agent-coach { border-color: #F39C12; }
+        
+        .agent-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+        
+        .agent-name {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #2C3E50;
+            margin-bottom: 5px;
+        }
+        
+        .agent-status-text {
+            font-size: 0.8rem;
+            color: #27AE60;
+            background: #E8F5E8;
+            padding: 4px 8px;
+            border-radius: 12px;
+        }
+        
+        .alert-item {
+            background: #FFF3CD;
+            border: 1px solid #FFEAA7;
+            border-radius: 6px;
+            padding: 10px;
+            margin: 8px 0;
+            font-size: 0.85rem;
+        }
+        
+        .alert-high { background: #F8D7DA; border-color: #F5C6CB; }
+        .alert-medium { background: #FFF3CD; border-color: #FFEAA7; }
+        .alert-low { background: #D1ECF1; border-color: #BEE5EB; }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #E0E0E0;
+            border-radius: 4px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2E8B57, #32CD32);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        
+        .community-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2E8B57;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: #7F8C8D;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="header">
+            <div class="logo">🌍 EcoMind Dashboard</div>
+            <div class="status-bar">
+                <div class="status-item">
+                    <div class="status-dot"></div>
+                    <span>4 Agents Active</span>
+                </div>
+                <div class="status-item">
+                    <div class="status-dot"></div>
+                    <span>Real-time Monitoring</span>
+                </div>
+                <div class="status-item">
+                    <span>Last Update: 2 min ago</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <!-- Air Quality Card -->
+            <div class="card">
+                <div class="card-title">🌬️ Air Quality Index</div>
+                <div class="metric-large">42</div>
+                <div class="metric-small">Good Quality</div>
+                <div class="chart-placeholder">📊 AQI Trend Chart</div>
+            </div>
+            
+            <!-- Predictions Card -->
+            <div class="card">
+                <div class="card-title">🔮 Predictions</div>
+                <div class="metric-small">Next 24h Forecast</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 75%;"></div>
+                </div>
+                <div class="metric-small">75% Accuracy Rate</div>
+                <div class="chart-placeholder">📈 Prediction Model</div>
+            </div>
+            
+            <!-- Alerts Card -->
+            <div class="card">
+                <div class="card-title">⚠️ Active Alerts</div>
+                <div class="alert-item alert-medium">
+                    <strong>Moderate Pollution</strong><br>
+                    Downtown area - PM2.5 elevated
+                </div>
+                <div class="alert-item alert-low">
+                    <strong>Weather Alert</strong><br>
+                    Rain expected - air quality improving
+                </div>
+            </div>
+            
+            <!-- Community Impact -->
+            <div class="card">
+                <div class="card-title">👥 Community Impact</div>
+                <div class="community-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">1,247</div>
+                        <div class="stat-label">Active Users</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">89</div>
+                        <div class="stat-label">Campaigns</div>
+                    </div>
+                </div>
+                <div class="chart-placeholder">📊 Engagement Metrics</div>
+            </div>
+            
+            <!-- Environmental Data -->
+            <div class="card">
+                <div class="card-title">🌡️ Environmental Data</div>
+                <div style="display: flex; justify-content: space-between; margin: 15px 0;">
+                    <div>
+                        <div style="font-size: 1.2rem; font-weight: bold; color: #2E8B57;">22°C</div>
+                        <div class="metric-small">Temperature</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 1.2rem; font-weight: bold; color: #3498DB;">65%</div>
+                        <div class="metric-small">Humidity</div>
+                    </div>
+                </div>
+                <div class="chart-placeholder">🌍 Location Map</div>
+            </div>
+            
+            <!-- Personal Coach -->
+            <div class="card">
+                <div class="card-title">🎯 Personal Coach</div>
+                <div class="metric-small">Today's Recommendations</div>
+                <div style="margin: 15px 0;">
+                    <div style="background: #E8F5E8; padding: 10px; border-radius: 6px; margin: 8px 0; font-size: 0.85rem;">
+                        ✅ Walk to work (saved 2.1kg CO₂)
+                    </div>
+                    <div style="background: #FFF3CD; padding: 10px; border-radius: 6px; margin: 8px 0; font-size: 0.85rem;">
+                        🚴 Try cycling this afternoon
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Agent Status -->
+            <div class="agent-status">
+                <div class="agent-card agent-monitoring">
+                    <div class="agent-icon">🌍</div>
+                    <div class="agent-name">Environmental Monitor</div>
+                    <div class="agent-status-text">Active</div>
+                </div>
+                <div class="agent-card agent-predictive">
+                    <div class="agent-icon">🔮</div>
+                    <div class="agent-name">Predictive Actions</div>
+                    <div class="agent-status-text">Learning</div>
+                </div>
+                <div class="agent-card agent-community">
+                    <div class="agent-icon">👥</div>
+                    <div class="agent-name">Community Coord</div>
+                    <div class="agent-status-text">Active</div>
+                </div>
+                <div class="agent-card agent-coach">
+                    <div class="agent-icon">🎯</div>
+                    <div class="agent-name">Personal Coach</div>
+                    <div class="agent-status-text">Coaching</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoMind Architecture Diagram</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background: #F8F9FA;
+        }
+        
+        .diagram-container {
+            width: 1200px;
+            height: 800px;
+            background: linear-gradient(135deg, #ffffff 0%, #f1f3f4 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .title {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2C3E50;
+            text-align: center;
+        }
+        
+        .subtitle {
+            position: absolute;
+            top: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.2rem;
+            color: #7F8C8D;
+            text-align: center;
+        }
+        
+        .orchestrator {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 180px;
+            height: 180px;
+            background: linear-gradient(135deg, #2E8B57, #32CD32);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(46, 139, 87, 0.3);
+            z-index: 10;
+        }
+        
+        .agent {
+            position: absolute;
+            width: 160px;
+            height: 160px;
+            background: white;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border: 3px solid;
+            transition: transform 0.3s ease;
+        }
+        
+        .agent:hover {
+            transform: scale(1.05);
+        }
+        
+        .agent-icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .agent-title {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #2C3E50;
+            margin-bottom: 0.3rem;
+        }
+        
+        .agent-subtitle {
+            font-size: 0.8rem;
+            color: #7F8C8D;
+        }
+        
+        .monitoring-agent {
+            top: 150px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-color: #3498DB;
+        }
+        
+        .predictive-agent {
+            top: 50%;
+            right: 100px;
+            transform: translateY(-50%);
+            border-color: #9B59B6;
+        }
+        
+        .community-agent {
+            bottom: 150px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-color: #E74C3C;
+        }
+        
+        .coach-agent {
+            top: 50%;
+            left: 100px;
+            transform: translateY(-50%);
+            border-color: #F39C12;
+        }
+        
+        .connection {
+            position: absolute;
+            background: #BDC3C7;
+            z-index: 1;
+        }
+        
+        .connection-1 {
+            top: 250px;
+            left: 50%;
+            width: 3px;
+            height: 120px;
+            transform: translateX(-50%);
+        }
+        
+        .connection-2 {
+            top: 50%;
+            right: 200px;
+            width: 120px;
+            height: 3px;
+            transform: translateY(-50%);
+        }
+        
+        .connection-3 {
+            bottom: 250px;
+            left: 50%;
+            width: 3px;
+            height: 120px;
+            transform: translateX(-50%);
+        }
+        
+        .connection-4 {
+            top: 50%;
+            left: 200px;
+            width: 120px;
+            height: 3px;
+            transform: translateY(-50%);
+        }
+        
+        .data-flow {
+            position: absolute;
+            font-size: 0.9rem;
+            color: #7F8C8D;
+            background: rgba(255,255,255,0.9);
+            padding: 4px 8px;
+            border-radius: 12px;
+            border: 1px solid #E0E0E0;
+        }
+        
+        .flow-1 { top: 300px; right: 380px; }
+        .flow-2 { bottom: 300px; left: 380px; }
+        .flow-3 { top: 320px; left: 380px; }
+        .flow-4 { bottom: 320px; right: 380px; }
+        
+        .shared-memory {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #34495E;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="diagram-container">
+        <div class="title">EcoMind Multi-Agent Architecture</div>
+        <div class="subtitle">Autonomous Environmental Intelligence System</div>
+        
+        <!-- Central Orchestrator -->
+        <div class="orchestrator">
+            <div>
+                🎯<br>
+                Agent<br>
+                Orchestrator
+            </div>
+        </div>
+        
+        <!-- Connections -->
+        <div class="connection connection-1"></div>
+        <div class="connection connection-2"></div>
+        <div class="connection connection-3"></div>
+        <div class="connection connection-4"></div>
+        
+        <!-- Agents -->
+        <div class="agent monitoring-agent">
+            <div class="agent-icon">🌍</div>
+            <div class="agent-title">Environmental<br>Monitoring</div>
+            <div class="agent-subtitle">Real-time Data</div>
+        </div>
+        
+        <div class="agent predictive-agent">
+            <div class="agent-icon">🔮</div>
+            <div class="agent-title">Predictive<br>Actions</div>
+            <div class="agent-subtitle">ML Predictions</div>
+        </div>
+        
+        <div class="agent community-agent">
+            <div class="agent-icon">👥</div>
+            <div class="agent-title">Community<br>Coordination</div>
+            <div class="agent-subtitle">Social Impact</div>
+        </div>
+        
+        <div class="agent coach-agent">
+            <div class="agent-icon">🎯</div>
+            <div class="agent-title">Personal<br>Coach</div>
+            <div class="agent-subtitle">User Guidance</div>
+        </div>
+        
+        <!-- Data Flow Labels -->
+        <div class="data-flow flow-1">Environmental Data</div>
+        <div class="data-flow flow-2">Community Actions</div>
+        <div class="data-flow flow-3">User Insights</div>
+        <div class="data-flow flow-4">Predictions</div>
+        
+        <!-- Shared Memory -->
+        <div class="shared-memory">📊 Shared Memory & Coordination Layer</div>
+    </div>
+</body>
+</html>
